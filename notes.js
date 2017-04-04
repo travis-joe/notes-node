@@ -39,12 +39,23 @@ const addNote = (title, body) => {
 };
 
 const getAll = () => {
-  console.log('Getting all notes')
+  return fetchNotes();
 };
 const getNote = (title) => {
-    console.log(`getting note ${title}`)
+    const notes = fetchNotes();
+    return notes.filter((note) => note.title === title )[0];
 };
 const removeNote = (title) => {
-    console.log(`Removing note ${title}`)
+    const notes = fetchNotes();
+    const result = notes.filter((note) => note.title !== title );
+    saveNotes(result);
+    // console.log(`Removing note ${title}`);
+    return notes.length !== result.length;
 };
-module.exports  = { addNote, getAll, getNote, removeNote};
+const logNote = (note) => {
+    debugger;
+    console.log('--');
+    console.log(`title:${note.title}`);
+    console.log(`body:${note.body}`);
+};
+module.exports  = { addNote, getAll, getNote, removeNote, logNote};

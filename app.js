@@ -23,17 +23,25 @@ if(command === 'add') {
     const note = notes.addNote(argv.title,argv.body);
     if(note) {
         console.log('Note Created!');
-        console.log('--');
-        console.log(`title:${note.title}`);
-        console.log(`body:${note.body}`);
+        notes.logNote(note)
     }else{
         console.log('Note title taken!')
     }
 }else if(command === 'list') {
-   notes.getAll()
+    const allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s).`);
+    allNotes.forEach( (note) => notes.logNote(note) )
 }else if(command === 'read') {
-    notes.getNote(argv.title)
+    const note = notes.getNote(argv.title);
+    if(note){
+        console.log('Note Found!');
+        notes.logNote(note)
+    }else{
+        console.log('Note not found!')
+    }
 }else if(command === 'remove') {
-    notes.removeNote(argv.title)
+    const noteRemoved = notes.removeNote(argv.title);
+    const message = noteRemoved? 'note have been removed' : 'title not found';
+    console.log(message);
 }
 
